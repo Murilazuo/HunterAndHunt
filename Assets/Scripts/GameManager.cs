@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] int minPrey;
     [SerializeField] int maxPrey;
     [SerializeField] float stepTime;
-
+    [SerializeField] TMP_Text turnCountText;
+    [SerializeField] Button nextTurnButton;
+    int turnCount = 0;
     public static GameManager instance;
     private void Awake()
     {
@@ -49,17 +54,25 @@ public class GameManager : MonoBehaviour
     }
     public void NextTurn()
     {
+        turnCount++;
+        turnCountText.text = "Turn: " + turnCount;
         StartCoroutine(nameof(Turn));
     }
     IEnumerator Turn()
     {
+        nextTurnButton.interactable = false;
         for(int i = 0; i < agents.Count; i++)
         {
             Agent agent = agents[i];
             agent.TakeAction();
             yield return new WaitForSeconds(stepTime);
         }
+        nextTurnButton.interactable = true;
         print("End Turn");
+    }
+    public void Reload()
+    {
+        SceneManager.LoadScene("Main");
     }
     public void RemoveAgent(Agent agent)
     {

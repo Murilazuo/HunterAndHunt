@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.iOS.Xcode;
 using UnityEngine;
 
 public class Hunter : Agent
 {
+    enum HunterState { Walk, Hunt}
     [SerializeField]List<Prey> preyAround = new();
     [SerializeField] int visionRange;
     [SerializeField] int attackRange;
-
     public static Hunter Instance;
+
+    delegate void State();
+    State currentState;
+    private void Start()
+    {
+        currentState = WalkState;
+    }
+   
     private void Awake()
     {
         Instance = this;
@@ -18,25 +25,33 @@ public class Hunter : Agent
     {
         GetPreysAround();
 
+        currentState?.Invoke();
+    }
+    void SetState(HunterState state)
+    {
+        switch (state)
+        {
+            case HunterState.Walk: currentState = WalkState; break;
+            case HunterState.Hunt: currentState = HuntState; break;
+        }
+
+        currentState.Invoke();
+    }
+    void WalkState()
+    {
+        if (HasPreyArround()) SetState(HunterState.Hunt);
+        else MoveInRandomDirection();
+    }
+    void HuntState()
+    {
         if (HasPreyArround())
         {
             if (HasPreyInAttackRange())
-            {
-                print("Kill");
                 KillPrey(GetCloserPrey());
-            }
             else
-            {
-
-                print("Go in ditection");
                 GoInPreyDirection();
-            }
         }
-        else
-        {
-            print("Move");
-            MoveInRandomDirection();
-        }
+        else SetState(HunterState.Walk);
     }
     void GoInPreyDirection()
     {
@@ -84,7 +99,6 @@ public class Hunter : Agent
                 minDistance = distance;
             }
         }
-        print(result);
         return result;
     }
     void KillPrey(Prey prey)
