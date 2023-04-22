@@ -26,10 +26,12 @@ Diagrama UML
   
 ### Hunter
   Agent que caça os Agents Preys. Possui dois estados, Hunt e Move.
-  No estado Move, o Agente se movimenta aleatoriamente em uma das oito direções até que esteja próximo de uma Prey, ai passa para o estado Hunt.
-  
+ 
+  Move: O Agente se movimenta aleatoriamente em uma das oito direções até que esteja próximo de uma Prey, ai passa para o estado Hunt.
+  Hunt: O Agente se movimenta na direção da Prey mais próxima dele.
 ### Prey
-
+  Agente que foge dos Hunters. Possui dois estados Escape e Hunt.
+  Move: Possui o mesmo comportamento 
 ## Utils
 
 ### SetSpeed
