@@ -13,6 +13,24 @@ Diagrama UML
 ### Game Manager
   Responsável por instanciar os agentes e controlar o game loop do jogo.
   
+#### Variáveis
+  - GameObject[] agentPrefabs : prefabs dos agentes que serão instanciados
+  - List<Agent> agents = new() : lista de agentes presentes na cena
+  - int minPrey : minimo de presas a serem instanciadas
+  - int maxPrey; : máximo de presas a serem instanciadas
+  - float stepTime : Delay entre cada chamada do agente.
+  - int turnCount = 0 : número atual de turnos
+    
+  + static GameManager instance (Singleton)
+  
+#### Métodos
+  - Start : Instancia os objetos na cena
+  - GameObject SpawnAgentInRandomPosition(AgentType agentType) : Gera uma posição vazia dentro do gride chama SpawnAgent(Agent)
+  - GameObject SpawnAgent(Vextor2Int pos, AgentType) : Instancia o Agente e adiciona sua posição ao Grid
+  + void RemoveAgent(Agent agent) : Remove o agente da lista de agentes na cenaAdiciona 
+  + void NextTurn() : Incrementa turnCount e chama a routine Turn
+  - IEnumerator Turn() : Chama TakeAction de cada agente presente na cena
+  + void Reload() : Recarrega a cena
   
 ### Grid
   Responável por criar o grid que armazena as posições dos Agents do jogo.
