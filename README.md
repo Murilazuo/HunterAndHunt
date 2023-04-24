@@ -57,12 +57,12 @@ Diagrama UML
 ### Agent
   Classe abstrata para os agentes do jogo.
 
-### Variáveis 
+#### Variáveis 
   - enum EnemyType { Hunter, Prey }
   - float timeToMove : tempo que o agente leva para se movimentar.
   - Vector2Int Pos : propriedade que retorna a posição atual em Vector2Int
 
-### Métodos 
+#### Métodos 
   - abstract void TakeAction() : é chamado pelo GameManager quando roda um novo turno
   - virtual vois DestroyAgent() : Remove o agente do grid é do GameManager e se destroy
   - void Move(Vector2Int dir) : Se move na direção e atualiza sua posição no grid
@@ -75,12 +75,13 @@ Diagrama UML
   Walk: O Agente se movimenta aleatoriamente em uma das oito direções até que esteja próximo de uma Prey, ai passa para o estado Hunt.
   Hunt: O Agente se movimenta na direção da Prey mais próxima dele.
 
-  ### Viáveis
+#### Viáveis
   enum HunterState { Walk, Hunt }
 
 ### Prey
   Agente que foge dos Hunters. Possui dois estados Escape e Hunt.
   Move: Possui o mesmo comportamento 
+  
 ## Utils
 
 ### SetSpeed
