@@ -8,7 +8,7 @@ Simulação de agentes com comportamentos distintos em um grid limitado. Existem
 # Implementação
 Diagrama UML
 
-![Diagrama UML do projeto](https://user-images.githubusercontent.com/78811958/233791387-626d3c42-90a8-4f3f-9cca-9edd681ee958.jpg)
+![Diagrama UML do projeto](https://user-images.githubusercontent.com/78811958/234140001-511030b6-7ff6-4956-8217-df80c5f3f4ed.png)
 
 ## Menagers 
 
@@ -75,7 +75,7 @@ Diagrama UML
 
 
 ### Hunter
-  ![image](https://user-images.githubusercontent.com/78811958/234137442-3bd5ea3f-d004-454d-ae16-7df567eca941.png)
+  ![Finit Machine State de Hunter](https://user-images.githubusercontent.com/78811958/234137442-3bd5ea3f-d004-454d-ae16-7df567eca941.png)
 
   Agent que caça os Agents Preys. Possui dois estados, Hunt e Walk.
  
@@ -104,7 +104,7 @@ Diagrama UML
   - void GetPreyAtound() : Adiciona os prey que estão no range de visionRange a preyAround.
   
 ### Prey
-  ![image](https://user-images.githubusercontent.com/78811958/234137483-33c9fa54-ef51-43c9-9a40-7b879b565836.png)
+  ![Finit Machine State de Prey](https://user-images.githubusercontent.com/78811958/234137483-33c9fa54-ef51-43c9-9a40-7b879b565836.png)
 
   Agente que foge dos Hunters. Possui dois estados Escape e Walk.
   Walk: Possui o mesmo comportamento de Walk Hunt.
