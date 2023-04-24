@@ -70,6 +70,8 @@ Diagrama UML
 
 
 ### Hunter
+  ![image](https://user-images.githubusercontent.com/78811958/234137442-3bd5ea3f-d004-454d-ae16-7df567eca941.png)
+
   Agent que caça os Agents Preys. Possui dois estados, Hunt e Walk.
  
   Walk: O Agente se movimenta aleatoriamente em uma das oito direções até que esteja próximo de uma Prey, ai passa para o estado Hunt.
@@ -100,6 +102,9 @@ Diagrama UML
   - void GetPreyAtound() : Adiciona os prey que estão no range de visionRange a preyAround.
   
 ### Prey
+  ![image](https://user-images.githubusercontent.com/78811958/234137483-33c9fa54-ef51-43c9-9a40-7b879b565836.png)
+
+
   Agente que foge dos Hunters. Possui dois estados Escape e Walk.
   Walk: Possui o mesmo comportamento de Walk Hunt.
   
