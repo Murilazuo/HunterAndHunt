@@ -58,15 +58,15 @@ Diagrama UML
   Classe abstrata para os agentes do jogo.
 
 ### Variáveis 
-  enum EnemyType { Hunter, Prey }
-  float timeToMove : tempo que o agente leva para se movimentar.
-  Vector2Int Pos : propriedade que retorna a posição atual em Vector2Int
+  - enum EnemyType { Hunter, Prey }
+  - float timeToMove : tempo que o agente leva para se movimentar.
+  - Vector2Int Pos : propriedade que retorna a posição atual em Vector2Int
 
 ### Métodos 
-  abstract void TakeAction() : é chamado pelo GameManager quando roda um novo turno
-  virtual vois DestroyAgent() : Remove o agente do grid é do GameManager e se destroy
-  void Move(Vector2Int dir) : Se move na direção e atualiza sua posição no grid
-  boid MoveInRandomDirection() : Se move aleatoriamente em direção a uma posição que esteja dentro do grid (Grid.InBounds) e que não esteja ocupando por nenhum outro agente (Grid.GetCell(Pos + dir) == null).
+  - abstract void TakeAction() : é chamado pelo GameManager quando roda um novo turno
+  - virtual vois DestroyAgent() : Remove o agente do grid é do GameManager e se destroy
+  - void Move(Vector2Int dir) : Se move na direção e atualiza sua posição no grid
+  - void MoveInRandomDirection() : Se move aleatoriamente em direção a uma posição que esteja dentro do grid (Grid.InBounds) e que não esteja ocupando por nenhum outro agente (Grid.GetCell(Pos + dir) == null).
 
 
 ### Hunter
