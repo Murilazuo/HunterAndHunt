@@ -1,7 +1,9 @@
 # HunterAndHunt
-// descrição
+Desenvolvido por Murilo Bezerra e Lucas Eilert
 
 # Conceitos
+
+Simulação de agentes com comportamentos distintos em um grid limitado. Existem dois tipos de agentes, as presas (Prey) e os caçadores (Hunter). Normalmente, ambos andam aleatoriamente em uma das oito direções, quando o Hunter fica a uma certa distância de uma Prey, ele vai em sua direção, e a Prey vai na direção oposta do Hunter. 
 
 # Implementação
 Diagrama UML
@@ -11,7 +13,7 @@ Diagrama UML
 ## Menagers 
 
 ### Game Manager
-  Responsável por instanciar os agentes e controlar o game loop do jogo.
+  Responsável por instanciar os agentes e controlar o game loop do jogo. Possui uma lista com todos os agentes na cena, a cada turno, o GameManager chama TakeAction de todos esses agentes.
   
 #### Variáveis
   - GameObject[] agentPrefabs : prefabs dos agentes que serão instanciados
@@ -33,7 +35,7 @@ Diagrama UML
   - public void Reload() : Recarrega a cena
   
 ### Grid
-  Responável por criar o grid que armazena as posições dos Agents do jogo.
+  Responável por criar o grid que armazena as posições dos Agents do jogo. Por meio de uma array 2D de agentes, é possível verificar a posição dos agentes na cena, usando a posição do mundo como index. Caso uma celula retorne null, a célula está vazia, se aposição a ser consultada for menor que zero e o valor máximo de ambas as coordenadas, a posição está fora dos limites do grid.
   
 #### Variáveis 
   - GameObject gridCell : Preab de celula do grid, apenas estético.
@@ -52,7 +54,6 @@ Diagrama UML
   - public Vector2Int RandomPositionInBounds() : Retorna uma posição aleatória dentro do grid
 
 ## Agents
-  
 
 ### Agent
   Classe abstrata para os agentes do jogo.
