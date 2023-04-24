@@ -5,6 +5,7 @@ public enum AgentType { Prey,Hunter}
 public abstract class Agent : MonoBehaviour
 {
     [SerializeField] float timeToMove;
+    
     protected Vector2Int Pos
     {
         get
@@ -17,6 +18,10 @@ public abstract class Agent : MonoBehaviour
         }
     }
 
+    protected delegate void State();
+    protected State[] states;
+    protected State currentState;
+    protected void SetState(int stateId) => currentState = states[stateId];
 
     public abstract void TakeAction();
     public virtual void DestroyAgent()

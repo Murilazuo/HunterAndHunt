@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        Spawn();
+    }
+    void Spawn()
+    {
         int preyCount = Random.Range(minPrey, maxPrey);
         for(int i = 0; i < preyCount; i++)
         {
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
+    
     public void RemoveAgent(Agent agent)
     {
         if (agents.Contains(agent))

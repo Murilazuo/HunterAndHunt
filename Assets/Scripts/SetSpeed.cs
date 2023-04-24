@@ -6,13 +6,13 @@ using UnityEngine;
 public class SetSpeed : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
-    float speed = 1;
+    float currentSpeed = 1;
     public void ToggleSpeed()
     {
-        if(speed < 10) speed++;
-        else speed = 1;
+        if(currentSpeed < 10) currentSpeed++;
+        else currentSpeed = 1;
 
-        Time.timeScale = speed;
-        text.text = "x" + speed;
+        Time.timeScale = currentSpeed;
+        text.text = "x" + currentSpeed;
     }
 }

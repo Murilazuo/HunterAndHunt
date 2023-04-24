@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField] GameObject gridCell;
+    [SerializeField] GameObject gridCellPrefab;
     [SerializeField] Vector2Int gridSize;
     Agent[,] cells;
 
@@ -16,7 +16,7 @@ public class Grid : MonoBehaviour
         cells = new Agent[gridSize.x, gridSize.y];
         for(int x = 0; x < gridSize.x; x++)
             for(int y = 0; y < gridSize.y; y++)
-                Instantiate(gridCell, new Vector2(x, y),Quaternion.identity).transform.SetParent(transform);
+                Instantiate(gridCellPrefab, new Vector2(x, y),Quaternion.identity).transform.SetParent(transform);
     }
     public Agent GetCell(Vector2Int pos)
     {

@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53561c20dcc44764baea85b31741e3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCell: {fileID: 4606688101537257954, guid: 2176ab95398e9df4bb4694f1eebb6733, type: 3}
+  gridCellPrefab: {fileID: 4606688101537257954, guid: 2176ab95398e9df4bb4694f1eebb6733, type: 3}
   gridSize: {x: 30, y: 30}
 --- !u!114 &1257757114
 MonoBehaviour:

@@ -9,37 +9,26 @@ public class Hunter : Agent
     [SerializeField] int visionRange;
     [SerializeField] int attackRange;
     public static Hunter Instance;
-
-    delegate void State();
-    State currentState;
-    private void Start()
-    {
-        currentState = WalkState;
-    }
    
     private void Awake()
     {
         Instance = this;
+       
+        states = new State[2];
+        
+        states[0] = WalkState;
+        states[1] = HuntState;
+
+        SetState(0);
     }
     public override void TakeAction()
     {
         GetPreysAround();
-
         currentState?.Invoke();
-    }
-    void SetState(HunterState state)
-    {
-        switch (state)
-        {
-            case HunterState.Walk: currentState = WalkState; break;
-            case HunterState.Hunt: currentState = HuntState; break;
-        }
-
-        currentState.Invoke();
     }
     void WalkState()
     {
-        if (HasPreyArround()) SetState(HunterState.Hunt);
+        if (HasPreyArround()) SetState((int)HunterState.Hunt);
         else MoveInRandomDirection();
     }
     void HuntState()
@@ -51,7 +40,7 @@ public class Hunter : Agent
             else
                 GoInPreyDirection();
         }
-        else SetState(HunterState.Walk);
+        else SetState((int)HunterState.Walk);
     }
     void GoInPreyDirection()
     {

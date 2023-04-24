@@ -7,37 +7,29 @@ public class Prey : Agent
     enum PreyState { Walk, Escape}
     [SerializeField] int distanceToRun;
     
-    delegate void State();
-    State currentState;
-    
     private void Start()
     {
-        currentState = WalkState;
+        states = new State[2];
+
+        states[0] = WalkState;
+        states[1] = EscapeState;
+
+        SetState(0);
     }
     public override void TakeAction()
     {
         currentState?.Invoke();
     }
 
-    void SetState(PreyState state)
-    {
-        switch (state)
-        {
-            case PreyState.Walk: currentState = WalkState; break;
-            case PreyState.Escape: currentState = EscapeState; break;
-        }
-
-        currentState.Invoke();
-    }
     void WalkState()
     {
-        if (HunterIsInDistanceToRun()) SetState(PreyState.Escape);
+        if (HunterIsInDistanceToRun()) SetState((int)PreyState.Escape);
         else MoveInRandomDirection();
     }
     void EscapeState()
     {
         if (HunterIsInDistanceToRun()) GoInOpositeHunterDirection(); 
-        else SetState(PreyState.Walk);
+        else SetState((int)PreyState.Walk);
     }
     bool HunterIsInDistanceToRun()
     {
