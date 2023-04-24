@@ -21,7 +21,7 @@ Diagrama UML
   - float stepTime : Delay entre cada chamada do agente
   - int turnCount = 0 : número atual de turnos
     
-  - public static GameManager instance (Singleton-  )
+  - public static GameManager instance : Singleton
   
 #### Métodos
   - Start : Instancia os objetos na cena
@@ -40,7 +40,7 @@ Diagrama UML
   - Vector2Int gridSize : Tamanho do grid
   - Agent[,] cells : Array 2D que armazena a posição dos Agentes no jogo
 
-  - public static Grid Instance (Singleton)
+  - public static Grid Instance : Singleton
 
 #### Métodos
   - Awake() : cria o array de cells e instancia um gridCell para cada posição do grid
@@ -74,13 +74,51 @@ Diagrama UML
  
   Walk: O Agente se movimenta aleatoriamente em uma das oito direções até que esteja próximo de uma Prey, ai passa para o estado Hunt.
   Hunt: O Agente se movimenta na direção da Prey mais próxima dele.
-
+  
 #### Viáveis
-  enum HunterState { Walk, Hunt }
+  - enum HunterState { Walk, Hunt }
+  - List<Prey> preyAround : lista de inimigos na visionRange do Hunter no turno atual.
+  - int visionRange : Range de visão 
+  - int attackRange : Range que o Hunter irá atacar
+  - public static Hunter Instance : Singleton
 
+  - delegate void State()
+  - State currentState
+  
+#### Métodos
+  - void TakeAction() : popula a lista preyAround com GetPreyAround() e invoca currentState.
+  - void SetState(HuntState hunt) : Define o método correspondente ao estado em currentState.
+  
+  - void WalkState() : Método invocado por currentState, Se HasPreyAround() for verdadeiro, chama SetState(HuntState.Hunt), se não chama MoveInRandomDirection()
+  - void HuntState() : Método invocado por currentState, Se HasPReyAround() for verdadeiro, Se HasPreyInAttackRange() for verdadeiro, chame KillAgent() da Prey mais próxima, se não vai em direção a Prey mais próxima, se não SetState(HuntState.Walk)
+  
+  - void GoInPreyDirection() : Vai em direção a Prey mais próxima.
+  - bool HasPreyArround() : Retorna verdadeiro se o count de preyAround > 0.
+  - bool HasPreyInAttackRange() : Retorna verdadeiro se houver ao menous uma Prey na área de ataque de Hunt.
+  - Prey GetCloserPrey() : Retorna o Prey mais próximo.
+  - void KillPrey(Prey prey) : Chama KillAgent de prey.
+  - void GetPreyAtound() : Adiciona os prey que estão no range de visionRange a preyAround.
+  
 ### Prey
-  Agente que foge dos Hunters. Possui dois estados Escape e Hunt.
-  Move: Possui o mesmo comportamento 
+  Agente que foge dos Hunters. Possui dois estados Escape e Walk.
+  Walk: Possui o mesmo comportamento de Walk Hunt.
+  
+#### Variáveis
+  - enum PreyState { Walk, Escape } 
+  - int distanceToRun
+  
+  - delegate void State()
+  - State currentState
+  
+#### Métodos
+  - void TakeAction() : invoca currentState.
+  - void SetState(HuntState hunt) : Define o método correspondente ao estado em currentState.
+  
+  - void WalkState() : Método invocado por currentState, Se HunterIsInDistanceToRun() for verdadeiro, chama SetState(PreyState.Escape), se não chama MoveInRandomDirection()
+  - void EscapeState() : Método invocado por currentState, Se HunterIsInDistanceToRun() for verdadeiro, chama GoInOpositeHunterDirection(), se não SetState(PreyState.Walk)
+  
+  - bool HunterIsInDistanceToRun() : retorna verdadeiro se a distancia de Hunter for menor que distanceToRun
+  - void GoInOpositeHunterDirection() : vai na direção oposta do Hunter.
   
 ## Utils
 
