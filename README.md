@@ -62,12 +62,16 @@ Diagrama UML
   - enum EnemyType { Hunter, Prey }
   - float timeToMove : tempo que o agente leva para se movimentar.
   - Vector2Int Pos : propriedade que retorna a posição atual em Vector2Int
+  - delegate void State() : métodos delegate que serão utilizados para aticar os States dos Agentes
+  - State states[] : lista de estados que será inicializada nas classes concretas
+  - State currentState : estado atual de acordo com o enum de states das classes concretas, é definida no SetState()
 
 #### Métodos 
   - abstract void TakeAction() : é chamado pelo GameManager quando roda um novo turno
   - virtual vois DestroyAgent() : Remove o agente do grid é do GameManager e se destroy
   - void Move(Vector2Int dir) : Se move na direção e atualiza sua posição no grid
   - void MoveInRandomDirection() : Se move aleatoriamente em direção a uma posição que esteja dentro do grid (Grid.InBounds) e que não esteja ocupando por nenhum outro agente (Grid.GetCell(Pos + dir) == null).
+  - void SetState(int stateId) : Defini cuurentState de acordo com states, utilizando stateId como index
 
 
 ### Hunter
@@ -85,15 +89,12 @@ Diagrama UML
   - int attackRange : Range que o Hunter irá atacar
   - public static Hunter Instance : Singleton
 
-  - delegate void State()
-  - State currentState
   
 #### Métodos
   - void TakeAction() : popula a lista preyAround com GetPreyAround() e invoca currentState.
-  - void SetState(HuntState hunt) : Define o método correspondente ao estado em currentState.
   
-  - void WalkState() : Método invocado por currentState, Se HasPreyAround() for verdadeiro, chama SetState(HuntState.Hunt), se não chama MoveInRandomDirection()
-  - void HuntState() : Método invocado por currentState, Se HasPReyAround() for verdadeiro, Se HasPreyInAttackRange() for verdadeiro, chame KillAgent() da Prey mais próxima, se não vai em direção a Prey mais próxima, se não SetState(HuntState.Walk)
+  - void WalkState() : Elemento 0 do array states. Método invocado por currentState, Se HasPreyAround() for verdadeiro, chama SetState(HuntState.Hunt), se não chama MoveInRandomDirection()
+  - void HuntState() : Elemento 1 do array states.Método invocado por currentState, Se HasPReyAround() for verdadeiro, Se HasPreyInAttackRange() for verdadeiro, chame KillAgent() da Prey mais próxima, se não vai em direção a Prey mais próxima, se não SetState(HuntState.Walk)
   
   - void GoInPreyDirection() : Vai em direção a Prey mais próxima.
   - bool HasPreyArround() : Retorna verdadeiro se o count de preyAround > 0.
@@ -105,23 +106,18 @@ Diagrama UML
 ### Prey
   ![image](https://user-images.githubusercontent.com/78811958/234137483-33c9fa54-ef51-43c9-9a40-7b879b565836.png)
 
-
   Agente que foge dos Hunters. Possui dois estados Escape e Walk.
   Walk: Possui o mesmo comportamento de Walk Hunt.
   
 #### Variáveis
   - enum PreyState { Walk, Escape } 
   - int distanceToRun
-  
-  - delegate void State()
-  - State currentState
-  
+ 
 #### Métodos
   - void TakeAction() : invoca currentState.
-  - void SetState(HuntState hunt) : Define o método correspondente ao estado em currentState.
   
-  - void WalkState() : Método invocado por currentState, Se HunterIsInDistanceToRun() for verdadeiro, chama SetState(PreyState.Escape), se não chama MoveInRandomDirection()
-  - void EscapeState() : Método invocado por currentState, Se HunterIsInDistanceToRun() for verdadeiro, chama GoInOpositeHunterDirection(), se não SetState(PreyState.Walk)
+  - void WalkState() : Elemento 0 do array states. Método invocado por currentState, Se HunterIsInDistanceToRun() for verdadeiro, chama SetState(PreyState.Escape), se não chama MoveInRandomDirection()
+  - void EscapeState() : Elemento 1 do array states. Método invocado por currentState, Se HunterIsInDistanceToRun() for verdadeiro, chama GoInOpositeHunterDirection(), se não SetState(PreyState.Walk)
   
   - bool HunterIsInDistanceToRun() : retorna verdadeiro se a distancia de Hunter for menor que distanceToRun
   - void GoInOpositeHunterDirection() : vai na direção oposta do Hunter.
