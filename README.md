@@ -129,5 +129,7 @@ Altera a velocidade da simulação.
 
 #### Máquina de Estados
 A máquina de estados foi desenvolvida com a intenção de criar um comportamento simples mas que criasse uma IA que reagisse ao ambiente ao redor e tomasse ações de acordo com isso. Para isso, criamos três estados e os dividimos entre presas e caçadores. As Presas estão no estado "passeando", ou seja, se movendo aleatoriamente pelo mapa até que sejam avistadas pelo predador, o que as faz trocar de estado para "fugindo", onde se movem um quadrado por turno na direção oposta do predador até saírem do seu campo de visão, ou até que sejam comidas. O caçador também está no estado "passeando, exatamente igual à presa, mas quando uma presa entra em seu campo de visão ele transiciona para o estado "perseguindo", onde avança dois quadrados por turno em direção à presa mais próxima até ela sair do seu campo de visão, ou até comê-la.
+  
 ![image](https://user-images.githubusercontent.com/89395431/234147825-d663b987-22ec-4763-b7c9-cc1efaa72002.png)
+  
 A diferença de velocidade entre presa e predador no estado "fugindo" e "perseguindo" foi feita para o predador conseguir, de fato, alcançar a presa, e para dar a sensação de que o predador dispara em direção ao alvo na velocidade máxima. A única forma de uma presa fugir do predador seria se, por sorte, enquanto o caçador avança em sua direção, outra presa acabar entrando no alcance do predador e esteja mais perto, já que o predador prioriza sempre o alvo mais próximo.
